@@ -7,7 +7,7 @@ app = Flask(__name__)
 # MongoDB Atlas connection
 client = MongoClient("mongodb+srv://princekushwaha11111_db_user:sRJkjQiKC7L1xlZO@cluster0.nxo7ne1.mongodb.net/testdb")
 db = client["testdb"]
-collection = db["users"]
+collection = db["todo_items"]   # collection name updated
 
 # API route
 @app.route('/api')
@@ -21,16 +21,19 @@ def get_data():
 def form():
     return render_template('form.html')
 
-# Form submit
-@app.route('/submit', methods=['POST'])
+# ✅ UPDATED submit route
+@app.route('/submittodoitem', methods=['POST'])
 def submit():
     try:
         data = {
-            "name": request.form['name'],
-            "email": request.form['email']
+            "itemName": request.form.get("itemName"),
+            "itemDescription": request.form.get("itemDescription")
         }
+
         collection.insert_one(data)
+
         return redirect(url_for('success'))
+
     except Exception as e:
         return f"Error: {str(e)}"
 

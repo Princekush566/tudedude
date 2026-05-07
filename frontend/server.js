@@ -1,7 +1,9 @@
 const express = require('express');
 const axios = require('axios');
+require('dotenv').config();
 
 const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -17,9 +19,12 @@ app.get('/', (req, res) => {
 
 app.post('/submit', async (req, res) => {
     try {
-        await axios.post('http://localhost:5000/submittodoitem', req.body);
+        await axios.post(`${process.env.BACKEND_URL}/submittodoitem`, req.body);
+
         res.send("✅ Data sent to Flask backend!");
     } catch (err) {
+        console.log(err);
+
         res.send("❌ Error sending data");
     }
 });

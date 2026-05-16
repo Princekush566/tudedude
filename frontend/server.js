@@ -19,7 +19,8 @@ app.get('/', (req, res) => {
 
 app.post('/submit', async (req, res) => {
     try {
-        await axios.post(`${process.env.BACKEND_URL}/submittodoitem`, req.body);
+        // await axios.post(`${process.env.BACKEND_URL}/submittodoitem`, req.body);
+        await axios.post('http://localhost:5000/submittodoitem', req.body);
 
         res.send("✅ Data sent to Flask backend!");
     } catch (err) {

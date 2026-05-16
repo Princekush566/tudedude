@@ -24,7 +24,7 @@ cd tudedude
 # Backend Setup
 cd backend
 
-pip3 install --break-system-packages --ignore-installed -r requirements.txt
+pip3 install -r requirements.txt
 
 pm2 start "python3 app.py" --name backend
 
@@ -38,3 +38,16 @@ pm2 start server.js --name frontend
 pm2 save
 
 pm2 startup systemd -u ubuntu --hp /home/ubuntu
+
+# Install Docker
+apt install docker.io -y
+
+systemctl start docker
+systemctl enable docker
+
+# Run Jenkins Container
+docker run -d \
+  --name jenkins \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  jenkins/jenkins:lts

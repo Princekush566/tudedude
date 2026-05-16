@@ -4,22 +4,24 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# MongoDB Atlas connection (same as tera)
+# MongoDB Atlas connection
 client = MongoClient("mongodb+srv://princekushwaha11111_db_user:sRJkjQiKC7L1xlZO@cluster0.nxo7ne1.mongodb.net/testdb")
 db = client["testdb"]
 collection = db["users"]
 
-# API route
+# Home Route
+@app.route('/')
+def home():
+    return "Backend Running via Jenkins CI/CD 🚀"
+
+# API Route
 @app.route('/api')
 def get_data():
     with open('data.json') as f:
         data = json.load(f)
     return jsonify(data)
 
-# IMPORTANT: frontend ab Node.js handle karega
-# isliye yaha form page hata diya (optional)
-
-# UPDATED submit route
+# Submit Route
 @app.route('/submittodoitem', methods=['POST'])
 def submit():
     try:
@@ -28,9 +30,10 @@ def submit():
 
         result = collection.insert_one(data)
 
-        print("Inserted ID:", result.inserted_id)  # 👈 IMPORTANT
+        print("Inserted ID:", result.inserted_id)
 
-        return "Saved in MongoDB!"
+        return "Backend Updated via Jenkins CI/CD 🚀"
+
     except Exception as e:
         print("ERROR:", e)
         return f"Error: {str(e)}"

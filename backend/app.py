@@ -12,7 +12,7 @@ collection = db["users"]
 # Home Route
 @app.route('/')
 def home():
-    return "Backend Running via Jenkins CI/CD 🚀"
+    return "Backend Updated Successfully 🚀🔥"
 
 # API Route
 @app.route('/api')
